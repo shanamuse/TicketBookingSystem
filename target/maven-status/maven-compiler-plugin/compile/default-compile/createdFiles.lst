@@ -1,2 +1,5 @@
-nz/event/ticketbookingsystem/resources/JakartaEE10Resource.class
 nz/event/ticketbookingsystem/JakartaRestConfiguration.class
+nz/event/ticketbookingsystem/resources/JakartaEE10Resource.class
+nz/event/ticketbookingsystem/controller/BookingController.class
+nz/event/ticketbookingsystem/model/SeatStatus.class
+nz/event/ticketbookingsystem/model/Seat.class
