@@ -15,48 +15,16 @@
   <title>Buy Tickets — Mamma Mia</title>
   <link rel="stylesheet" href="base.css">
   <style>
-    .seat-grid { display: flex; flex-direction: column; gap: 8px; }
-    .row { display: flex; align-items: center; }
-    .row-seats { display: flex; gap: 4px; flex: 1; }
-    .row-label-right { margin-left: 8px; font-weight: bold; }
-    .seat input { display: none; }
-
-    /* default seat */
-    .seat span { 
-      display: inline-block; 
-      width: 24px; height: 24px; 
-      line-height: 24px; 
-      text-align: center; 
-      border-radius: 50%; 
-      background: #eee; 
-      font-size: 12px;
-      cursor: not-allowed;
-      transition: background 0.2s;
-    }
-
-    /* available (purple) */
-    .seat.available span {
-      background: #8A2BE2;
-      color: white;
-      cursor: pointer;
-    }
-
-    /* selected (green + tick) */
-    .seat input:checked + span {
-      background: #32CD32;
-      color: white;
+    .stage {
+      text-align: center;
+      font-size: 24px;
       font-weight: bold;
-      content: "✓";
-    }
-    .seat input:checked + span::before {
-      content: "✓";
-      font-size: 14px;
-    }
-
-    /* disabled */
-    .seat input:disabled + span {
-      background: #ddd;
-      color: #aaa;
+      color: #fff;
+      background-color: #999;
+      padding: 10px 0;
+      margin: 20px auto 30px auto;
+      border-radius: 4px;
+      width: 80%;
     }
   </style>
 </head>
@@ -73,7 +41,11 @@
       <div class="left">
         <h4>Seat</h4>
         <div class="screen-label">Screen</div>
+
+        <div class="stage">STAGE</div>
+
         <div id="seatGrid" class="seat-grid"></div>
+
         <button id="bookBtn" class="book-btn" type="button">Book Tickets</button>
       </div>
 
@@ -83,20 +55,20 @@
         <h4>Your Information</h4>
         <label class="field">DATE
           <select id="dateSelect" class="select">
-            <option value="thu">Thu, 28 Aug — 7:30 pm</option>
-            <option value="sat">Sat, 30 Aug — 2:00 pm</option>
+            <option value="28Aug">Thu, 28 Aug — 7:30 pm</option>
+            <option value="30Aug">Sat, 30 Aug — 2:00 pm</option>
           </select>
         </label>
 
         <div class="summary">
-          <div><strong>TICKET NUMBER</strong> <span id="ticketNums">—</span></div>
-          <div><strong>TICKETS</strong> <span id="ticketCount">0</span></div>
-          <div><strong>PRICE</strong> <span id="price">0.00</span></div>
+          <div><strong>TICKET NUMBER</strong><span id="ticketNums">—</span></div>
+          <div><strong>TICKETS</strong><span id="ticketCount">0</span></div>
+          <div><strong>PRICE</strong><span id="price">0.00</span></div>
         </div>
 
         <div class="meta">
-          <div><strong>Event:</strong> <span>Mamma Mia</span></div>
-          <div><strong>Price per ticket:</strong> <span>$84.00</span></div>
+          <div><strong>Event:</strong><span>Mamma Mia</span></div>
+          <div><strong>Price per ticket:</strong><span>$84.00</span></div>
         </div>
       </div>
     </div>
@@ -107,9 +79,10 @@
     const rows = ['A','B','C','D','E'];
     const cols = 20;
 
-    const availability = {
-      "thu": ["C10","C11","C12","C13"],
-      "sat": ["D17","D18","D19","B5","B6"]
+    // Seat availability per date
+    const seatAvailability = {
+      "28Aug": ["C10","C11","C12","C13"],
+      "30Aug": ["D17","D18","D19","B5","B6"]
     };
 
     const seatGrid = document.getElementById('seatGrid');
@@ -119,8 +92,8 @@
     const dateSelect = document.getElementById('dateSelect');
 
     function buildGrid(dateKey) {
-      seatGrid.innerHTML = '';
-      const availableCodes = availability[dateKey] || [];
+      seatGrid.innerHTML = "";
+      const availableCodes = seatAvailability[dateKey] || [];
 
       rows.forEach(r => {
         const row = document.createElement('div');
@@ -137,9 +110,7 @@
           input.type = 'checkbox';
           input.value = code;
 
-          if (availableCodes.includes(code)) {
-            label.classList.add("available");
-          } else {
+          if (!availableCodes.includes(code)) {
             input.disabled = true;
           }
 
@@ -163,13 +134,14 @@
 
     function updateSummary() {
       const checked = [...document.querySelectorAll('.seat input:checked')].map(i=>i.value);
-      ticketNums.textContent = checked.length ? checked.join(', ') : '—';
+      ticketNums.textContent = checked.length ? checked.sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})).join(', ') : '—';
       ticketCount.textContent = checked.length;
       price.textContent = (checked.length * PRICE).toFixed(2);
     }
 
     document.addEventListener('change', e => {
       if (e.target.matches('.seat input[type="checkbox"]')) {
+        e.target.parentElement.classList.toggle('is-selected', e.target.checked);
         updateSummary();
       }
     });
@@ -186,5 +158,3 @@
   </script>
 </body>
 </html>
-
-

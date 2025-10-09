@@ -15,8 +15,6 @@ import java.util.*;
  */
 public class BookingController {
     private static final double PRICE_PER_SEAT = 84.00;
-
-    // Key = date string, Value = seats for that date
     private final Map<String, List<Seat>> seatMaps = new HashMap<>();
 
     public BookingController() {
@@ -24,7 +22,6 @@ public class BookingController {
     }
 
     private void initializeSeats() {
-        // two different shows with different seat availability
         seatMaps.put("Thu, 28 Aug — 7:30 pm", generateSeats(List.of("D9", "D10", "D11")));
         seatMaps.put("Sat, 30 Aug — 2:00 pm", generateSeats(List.of("C10", "C11", "C12", "C13")));
     }

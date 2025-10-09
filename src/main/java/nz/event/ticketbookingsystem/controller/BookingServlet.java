@@ -31,7 +31,7 @@ public class BookingServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String date = request.getParameter("date");
-        if (date == null) date = "Thu, 28 Aug — 7:30 pm"; // default
+        if (date == null) date = "Thu, 28 Aug — 7:30 pm"; 
 
         List<Seat> seats = controller.getSeatsForDate(date);
         request.setAttribute("seats", seats);
