@@ -30,8 +30,13 @@ public class BookingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Seat> seats = controller.getAllSeats();
+        String date = request.getParameter("date");
+        if (date == null) date = "Thu, 28 Aug — 7:30 pm"; // default
+
+        List<Seat> seats = controller.getSeatsForDate(date);
         request.setAttribute("seats", seats);
+        request.setAttribute("selectedDate", date);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("booking.jsp");
         dispatcher.forward(request, response);
     }
@@ -39,14 +44,17 @@ public class BookingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String date = request.getParameter("date");
         String[] selectedCodes = request.getParameterValues("seats");
         if (selectedCodes == null) selectedCodes = new String[0];
 
         List<String> selected = Arrays.asList(selectedCodes);
-        String total = controller.bookSeats(selected);
+        String total = controller.bookSeats(date, selected);
 
+        request.setAttribute("date", date);
         request.setAttribute("totalPrice", total);
         request.setAttribute("selectedSeats", selected);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("confirmation.jsp");
         dispatcher.forward(request, response);
     }
