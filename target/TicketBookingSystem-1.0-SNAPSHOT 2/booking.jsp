@@ -14,19 +14,6 @@
   <meta charset="UTF-8">
   <title>Buy Tickets — Mamma Mia</title>
   <link rel="stylesheet" href="base.css">
-  <style>
-    .stage {
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      color: #fff;
-      background-color: #999;
-      padding: 10px 0;
-      margin: 20px auto 30px auto;
-      border-radius: 4px;
-      width: 80%;
-    }
-  </style>
 </head>
 <body>
   <div class="backdrop"></div>
@@ -41,11 +28,7 @@
       <div class="left">
         <h4>Seat</h4>
         <div class="screen-label">Screen</div>
-
-        <div class="stage">STAGE</div>
-
         <div id="seatGrid" class="seat-grid"></div>
-
         <button id="bookBtn" class="book-btn" type="button">Book Tickets</button>
       </div>
 
@@ -55,8 +38,8 @@
         <h4>Your Information</h4>
         <label class="field">DATE
           <select id="dateSelect" class="select">
-            <option value="28Aug">Thu, 28 Aug — 7:30 pm</option>
-            <option value="30Aug">Sat, 30 Aug — 2:00 pm</option>
+            <option>Thu, 28 Aug — 7:30 pm</option>
+            <option>Sat, 30 Aug — 2:00 pm</option>
           </select>
         </label>
 
@@ -78,23 +61,14 @@
     const PRICE = 84.00;
     const rows = ['A','B','C','D','E'];
     const cols = 20;
-
-    // Seat availability per date
-    const seatAvailability = {
-      "28Aug": ["C10","C11","C12","C13"],
-      "30Aug": ["D17","D18","D19","B5","B6"]
-    };
+    const availableCodes = ["C10","C11","C12","C13"];
 
     const seatGrid = document.getElementById('seatGrid');
     const ticketNums = document.getElementById('ticketNums');
     const ticketCount = document.getElementById('ticketCount');
     const price = document.getElementById('price');
-    const dateSelect = document.getElementById('dateSelect');
 
-    function buildGrid(dateKey) {
-      seatGrid.innerHTML = "";
-      const availableCodes = seatAvailability[dateKey] || [];
-
+    function buildGrid() {
       rows.forEach(r => {
         const row = document.createElement('div');
         row.className = 'row';
@@ -110,9 +84,7 @@
           input.type = 'checkbox';
           input.value = code;
 
-          if (!availableCodes.includes(code)) {
-            input.disabled = true;
-          }
+          if (!availableCodes.includes(code)) input.disabled = true;
 
           const span = document.createElement('span');
           span.textContent = i;
@@ -146,14 +118,9 @@
       }
     });
 
-    dateSelect.addEventListener('change', () => {
-      buildGrid(dateSelect.value);
-      updateSummary();
-    });
-
     document.getElementById('bookBtn').addEventListener('click', () => updateSummary());
 
-    buildGrid(dateSelect.value);
+    buildGrid();
     updateSummary();
   </script>
 </body>
