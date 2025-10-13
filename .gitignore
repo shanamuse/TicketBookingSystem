@@ -1,0 +1,14 @@
+# macOS system files
+.DS_Store
+
+# NetBeans build folders
+/nbproject/private/
+/build/
+/dist/
+
+# Maven target folder
+/target/
+
+# Logs and temp files
+*.log
+*.tmp
