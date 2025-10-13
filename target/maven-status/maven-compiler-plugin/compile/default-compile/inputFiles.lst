@@ -1,6 +1,6 @@
-/Users/shanamusekiwa/Desktop/TicketBookingSystem/src/main/java/nz/event/ticketbookingsystem/model/Seat.java
-/Users/shanamusekiwa/Desktop/TicketBookingSystem/src/main/java/nz/event/ticketbookingsystem/model/SeatStatus.java
-/Users/shanamusekiwa/Desktop/TicketBookingSystem/src/main/java/nz/event/ticketbookingsystem/JakartaRestConfiguration.java
-/Users/shanamusekiwa/Desktop/TicketBookingSystem/src/main/java/nz/event/ticketbookingsystem/controller/BookingController.java
-/Users/shanamusekiwa/Desktop/TicketBookingSystem/src/main/java/nz/event/ticketbookingsystem/controller/BookingServlet.java
-/Users/shanamusekiwa/Desktop/TicketBookingSystem/src/main/java/nz/event/ticketbookingsystem/resources/JakartaEE10Resource.java
+/Users/shanamusekiwa/Desktop/TicketBookingSystemNew/src/main/java/nz/event/ticketbookingsystem/controller/BookingServlet.java
+/Users/shanamusekiwa/Desktop/TicketBookingSystemNew/src/main/java/nz/event/ticketbookingsystemnew/resources/JakartaEE10Resource.java
+/Users/shanamusekiwa/Desktop/TicketBookingSystemNew/src/main/java/nz/event/ticketbookingsystem/controller/BookingController.java
+/Users/shanamusekiwa/Desktop/TicketBookingSystemNew/src/main/java/nz/event/ticketbookingsystem/model/Seat.java
+/Users/shanamusekiwa/Desktop/TicketBookingSystemNew/src/main/java/nz/event/ticketbookingsystemnew/JakartaRestConfiguration.java
+/Users/shanamusekiwa/Desktop/TicketBookingSystemNew/src/main/java/nz/event/ticketbookingsystem/model/SeatStatus.java
